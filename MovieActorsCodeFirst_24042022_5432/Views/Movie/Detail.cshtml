@@ -1,0 +1,85 @@
+﻿@model MovieActorsCodeFirst_24042022_5432.Models.Movie
+
+@{
+    ViewBag.Title = "Detail";
+    string oyuncusayisi = Model.MovieActors.Count.ToString();
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Director.FirstName)*@ YÖNETMEN ADI
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Director.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublishDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.IsActive)*@
+            @if (Model.IsActive)
+            {
+                <p>Aktiftir</p>
+            }
+            else
+            {
+                <p>Aktif Değildir</p>
+            }
+
+        </dd>
+
+        <dd>
+
+            @oyuncusayisi
+        </dd>
+
+        <dt>
+            Filmin Oyuncuları
+
+        </dt>
+
+        <dd>
+
+            @for (int i = 0; i < Model.MovieActors.Count; i++)
+            {
+            <div class="col-md-2">
+                <p> @Model.MovieActors[i].Actor.FirstName @Model.MovieActors[i].Actor.FirstName </p>
+                <p> @Model.MovieActors[i].Actor.BirthDate </p>
+            </div>
+            }
+        </dd>
+
+        
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Update", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

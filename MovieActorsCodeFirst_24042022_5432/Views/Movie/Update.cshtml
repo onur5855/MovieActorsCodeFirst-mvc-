@@ -1,0 +1,74 @@
+﻿@model Tuple<MovieActorsCodeFirst_24042022_5432.Models.Movie, List<MovieActorsCodeFirst_24042022_5432.Models.DataTransferObjects.ActorSelectDTO>, List<SelectListItem>>
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Movie</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Item1.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.MovieName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Item1.MovieName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item1.MovieName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.PublishDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Item1.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item1.PublishDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.DirectorID, "DirectorID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(Model => Model.Item1.DirectorID, Model.Item3, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Item1.DirectorID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.MovieActors, "Actors", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @for (int i = 0; i < Model.Item2.Count; i++)
+            {
+                <div class="col-md-2">
+                    @if (Model.Item2[i].IsSelected)
+                    {
+                        @Html.CheckBoxFor(Model => Model.Item2[i].IsSelected, new {@checked="True"})
+                    }
+                    else
+                    {
+                        @Html.CheckBoxFor(Model=>Model.Item2[i].IsSelected)
+                    }
+                    <label>@Model.Item2[i].FullName</label>
+                    @Html.HiddenFor(Model=>Model.Item2[i].ID)
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
